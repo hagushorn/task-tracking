@@ -20,7 +20,8 @@
             <th scope="row">{{ $val->id }}</th>
             <td>{{ $val->name }}</td>
             <td>{{ $val->post }}</td>
-            <td>Редактировать/ удалить</td>
+            <td><a href="{{ route('executor-edit',$val->id) }}">Редактировать</a> / 
+            <a href="{{ route('executor-delete',$val->id) }}">удалить</a></td>
         </tr>
         @endforeach
     </tbody>

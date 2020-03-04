@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Executors;
 class Tasks extends Model
 {
     protected $table = 'tasks';

@@ -24,7 +24,7 @@
                         </div>
                         <div class="input-group-prepend">
                             <label class="input-group-text" for="inputGroupSelect01">Исполнитель</label>
-                            <select class="custom-select" name = "idExecutor" id="inputGroupSelect01">
+                            <select multiple class="custom-select" name = "idExecutor[]" id="inputGroupSelect01">
                                 @foreach($data as $val)
                                     <option value="{{$val->id}}">{{$val->name}}</option>
                                 @endforeach
@@ -74,8 +74,9 @@ $(document).ready(function()
                 "_method": 'DELETE',
                 "_token": token
             },
-            success: function (data) {
+            success: function (message) {
                 el.detach();
+                alert(message.success);
             },
             error: function (msg) {
             alert('Ошибка');
@@ -102,8 +103,8 @@ $(document).ready(function()
                     {
                         console.log(data);
                         let str = `<tr><th scope="row">${data.id}</th><td>${data.title}</td><td>
-                        ${data.idExecutor}</td><td>${data.status}
-                        </td><td><a href="">Редактировать</a> / <a href="" data-id="${data.id}
+                        ${data.name}</td><td>${data.status}
+                        </td><td><a href="/editing/${data.id}">Редактировать</a> / <a href="" data-id="${data.id}
                         "data-token="{{ csrf_token() }}" class="deleteEl" >удалить</a></td>`;
                         $('#addTask').modal('hide');
                         $('.table > tbody:last').append(str);

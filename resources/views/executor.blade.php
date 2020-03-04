@@ -48,9 +48,9 @@ $(document).ready(function()
                 "_method": 'DELETE',
                 "_token": token
             },
-            success: function (data) {
+            success: function (message) {
                 el.detach();
-                alert("Запись удалена");
+                alert(message.success);
             },
             error: function (msg) {
             alert('Ошибка');

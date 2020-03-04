@@ -31,7 +31,7 @@ class ExecutorsController extends Controller
     {
         Executors::find($id)->delete();
         return response()->json([
-            'success' => 'Record has been deleted successfully!'
+            'success' => 'Пользователь успешно удален!'
         ]);
     }
     public function updateRow($id,Request $req)

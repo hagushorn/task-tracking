@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tasks extends Model
 {
-    //
+    protected $table = 'tasks';
+    public function executors()
+    {
+        return $this->belongsToMany(Executors::class);
+    }
 }

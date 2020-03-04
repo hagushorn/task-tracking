@@ -13,11 +13,7 @@
         <tr>
             <th scope="row">{{ $val->id }}</th>
             <td>{{ $val->title }}</td>
-            @foreach($data as $valEx)
-              @if($valEx->id == $val->idExecutor)
-                <td>{{ $valEx->name }}</td>
-              @endif
-            @endforeach
+            <td>{{ $val->name }}</td>
             <td>{{ $val->status }}</td>
             <td><a href="">Редактировать</a> / 
             <a href="" data-id="{{ $val->id }}" data-token="{{ csrf_token() }}" class="deleteEl" >удалить</a></td>

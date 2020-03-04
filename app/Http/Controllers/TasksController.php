@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tasks;
+use App\ExecutorTask;
 class TasksController extends Controller
 {
     public function submit(Request $req)
     {
-        $tasks = new tasks();
-        $tasks->title = $req->input('title');
-        $tasks->idExecutor = $req->input('idExecutor');
-        $tasks->status = $req->input('status');
-        $tasks->save();
-        return $tasks;
+        $exTask = new ExecutorTask(); 
+        $task = new tasks();
+        $task->title = $req->input('title');
+        $task->status = $req->input('status');
+        $task->save();
+        $exTask->idExecutor = $req->input('idExecutor');
+        $exTask->idTask = $task->id;
+        $exTask->save();
+        return \Response::json($task);
     }
 
     public function deleteRow($id)
     {
+        // executortask::find($id)->delete();
         tasks::find($id)->delete();
         return response()->json([
             'success' => 'Record has been deleted successfully!'

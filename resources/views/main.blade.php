@@ -34,8 +34,8 @@
                             <label class="input-group-text" for="inputGroupSelect01">Статус</label>
                             <select class="custom-select" name = "status" id="inputGroupSelect01">
                                 <option selected>Открыта</option>
-                                <option value="1">В работе</option>
-                                <option value="2">Завершена</option>
+                                <option value="В работе">В работе</option>
+                                <option value="Завершена">Завершена</option>
                             </select>
                         </div>
                     </div>
@@ -49,6 +49,9 @@
         </div>
     </div>
     </div>
+    <tr>
+        <th></th>
+    </tr>
     @include('includeEl.taskTable')
 
 @endsection
@@ -98,10 +101,10 @@ $(document).ready(function()
                     success:function(data)
                     {
                         console.log(data);
-                        var str = '<tr><th scope="row">'+data['id']+'</th><td>'+data['title']+'</td><td>'+
-                        data['idExecutor']+'</td><td>'+data['status']+
-                        '</td><td><a href="">Редактировать</a> / <a href="" data-id="'+data['id']+
-                        '"data-token="{{ csrf_token() }}" class="deleteEl" >удалить</a></td>';
+                        let str = `<tr><th scope="row">${data.id}</th><td>${data.title}</td><td>
+                        ${data.idExecutor}</td><td>${data.status}
+                        </td><td><a href="">Редактировать</a> / <a href="" data-id="${data.id}
+                        "data-token="{{ csrf_token() }}" class="deleteEl" >удалить</a></td>`;
                         $('#addTask').modal('hide');
                         $('.table > tbody:last').append(str);
                     },

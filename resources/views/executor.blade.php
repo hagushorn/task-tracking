@@ -49,8 +49,13 @@ $(document).ready(function()
                 "_token": token
             },
             success: function (message) {
-                el.detach();
-                alert(message.success);
+                if(message.success)
+                {
+                    el.detach();
+                    alert('Исполнитель удален!');
+                }
+                else
+                    alert('Ошибка');
             },
             error: function (msg) {
             alert('Ошибка');

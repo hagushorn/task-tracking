@@ -29,11 +29,23 @@ class ExecutorsController extends Controller
     }
     public function deleteRow($id)
     {
-        Executors::find($id)->delete();
-        // $all = Executors::all()->tasks()->pluck('id');
-
+        $check=false;
+        foreach(Tasks::all() as $val)
+        {
+            if(count($val->executors()->pluck('name'))==1)
+                if(Executors::find($id)->name===$val->executors()->pluck('name')->implode(', '))
+                {
+                    $check = true;
+                    break;
+                }
+        }
+        if(!$check)
+        {
+            Executors::find($id)->tasks()->detach();
+            Executors::find($id)->delete();
+        }
         return response()->json([
-            'success' => 'Пользователь успешно удален!'
+            'success' => !$check
         ]);
     }
     public function updateRow($id,Request $req)

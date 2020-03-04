@@ -20,7 +20,7 @@
             @endforeach
             <td>{{ $val->status }}</td>
             <td><a href="">Редактировать</a> / 
-            <a href="">удалить</a></td>
+            <a href="" data-id="{{ $val->id }}" data-token="{{ csrf_token() }}" class="deleteEl" >удалить</a></td>
         </tr>
         @endforeach
     </tbody>

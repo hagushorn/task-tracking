@@ -13,5 +13,14 @@ class TasksController extends Controller
         $tasks->idExecutor = $req->input('idExecutor');
         $tasks->status = $req->input('status');
         $tasks->save();
+        return $tasks;
+    }
+
+    public function deleteRow($id)
+    {
+        tasks::find($id)->delete();
+        return response()->json([
+            'success' => 'Record has been deleted successfully!'
+        ]);
     }
 }

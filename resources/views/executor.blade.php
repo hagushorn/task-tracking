@@ -21,7 +21,7 @@
             <td>{{ $val->name }}</td>
             <td>{{ $val->post }}</td>
             <td><a href="{{ route('executor-edit',$val->id) }}">Редактировать</a> / 
-            <a href="{{ route('executor-delete',$val->id) }}">удалить</a></td>
+            <a href=""data-id="{{ $val->id }}" data-token="{{ csrf_token() }}" class="deleteEl">удалить</a></td>
         </tr>
         @endforeach
     </tbody>
@@ -29,4 +29,36 @@
 <div class="d-flex justify-content-end">
     <a class="btn btn-success" href = "{{ route('executorAdd') }}">Добавить</a>
 </div>
+@endsection
+@section('ajax')
+<script type="text/javascript">
+$(document).ready(function()
+{
+    $('body').on('click','.deleteEl',function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+        var token = $(this).data('token');
+        var el = $(this).parents('tr');
+        $.ajax({
+            url: "/executor/delete"+id,
+            type: "DELETE",
+            dataType: "JSON",
+            data: {
+                "id": id,
+                "_method": 'DELETE',
+                "_token": token
+            },
+            success: function (data) {
+                el.detach();
+                alert("Запись удалена");
+            },
+            error: function (msg) {
+            alert('Ошибка');
+            }
+
+        });
+
+    });
+});
+</script>
 @endsection

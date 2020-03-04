@@ -55,6 +55,37 @@
 
 @section('ajax')
 <script type="text/javascript">
+$(document).ready(function()
+{
+    $('body').on('click','.deleteEl',function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+        var token = $(this).data('token');
+        var el = $(this).parents('tr');
+        $.ajax({
+            url: "/delete"+id,
+            type: "DELETE",
+            dataType: "JSON",
+            data: {
+                "id": id,
+                "_method": 'DELETE',
+                "_token": token
+            },
+            success: function (data) {
+                el.detach();
+            },
+            error: function (msg) {
+            alert('Ошибка');
+            }
+
+        });
+
+    });
+});
+</script>
+
+<!-- add new El -->
+<script type="text/javascript">
         $(document).ready(function()
         {
             $('#addForm').on('submit',function(e)
@@ -64,16 +95,19 @@
                     type:"POST",
                     url:"/taskAdd",
                     data:$('#addForm').serialize(),
-                    success:function(response)
+                    success:function(data)
                     {
-                        console.log(response);
+                        console.log(data);
+                        var str = '<tr><th scope="row">'+data['id']+'</th><td>'+data['title']+'</td><td>'+
+                        data['idExecutor']+'</td><td>'+data['status']+
+                        '</td><td><a href="">Редактировать</a> / <a href="" data-id="'+data['id']+
+                        '"data-token="{{ csrf_token() }}" class="deleteEl" >удалить</a></td>';
                         $('#addTask').modal('hide');
-                        $('.table>tbody').empty();
+                        $('.table > tbody:last').append(str);
                     },
                     error:function(error)
                     {
                         console.log(error);
-                        alert("Задача не добавлена");
                     }
                 });
             });

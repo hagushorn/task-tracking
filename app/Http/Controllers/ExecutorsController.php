@@ -27,6 +27,13 @@ class ExecutorsController extends Controller
     {
         return view('executorEditing',['data'=>Executors::find($id)]);
     }
+    public function deleteRow($id)
+    {
+        Executors::find($id)->delete();
+        return response()->json([
+            'success' => 'Record has been deleted successfully!'
+        ]);
+    }
     public function updateRow($id,Request $req)
     {
         $executors = Executors::find($id);

@@ -53,6 +53,9 @@
         <th></th>
     </tr>
     @include('includeEl.taskTable')
+<div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTask">Добавить</button>
+</div>
 
 @endsection
 

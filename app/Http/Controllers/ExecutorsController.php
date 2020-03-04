@@ -30,6 +30,8 @@ class ExecutorsController extends Controller
     public function deleteRow($id)
     {
         Executors::find($id)->delete();
+        // $all = Executors::all()->tasks()->pluck('id');
+
         return response()->json([
             'success' => 'Пользователь успешно удален!'
         ]);

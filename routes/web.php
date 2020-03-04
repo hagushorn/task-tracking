@@ -27,6 +27,8 @@ Route::get('/success',function()
     return view('taskSuccess');
 })->name('Success');
 
+Route::post('search','TasksController@search')->name('search');
+
 Route::post('executor/add/addNewValue','ExecutorsController@submit')->name('Add');
 
 Route::get('/executor/editing{id}', 'ExecutorsController@getRow')->name('executor-edit');

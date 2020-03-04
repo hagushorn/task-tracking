@@ -9,15 +9,11 @@ class TasksController extends Controller
 {
     public function submit(Request $req)
     {
-        // $exTask = new ExecutorTask(); 
         $task = new tasks();
         $task->title = $req->input('title');
         $task->status = $req->input('status');
         $task->save();
         $task->executors()->attach($req->input('idExecutor'));
-        // $exTask->idExecutor = $req->input('idExecutor');
-        // $exTask->idTask = $task->id;
-        // $exTask->save();
         return \Response::json(
         ['id'=>$task->id,
         'title'=>$req->input('title'),
@@ -25,9 +21,12 @@ class TasksController extends Controller
         'name'=>$task->executors()->pluck('name')->implode(', ')]);
     }
 
+    public function search(Request $req)
+    {
+        return view('searchForm',['dataTask'=> Tasks::where('title','LIKE','%'.$req->input('title').'%')->get()]);
+    }
     public function deleteRow($id)
     {
-        // executortask::find($id)->delete();
         $task = tasks::find($id);
         $task->executors()->detach();
         $task->delete();
